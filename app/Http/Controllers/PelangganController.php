@@ -1,3 +1,4 @@
+
 <?php
 
 namespace App\Http\Controllers;
@@ -7,35 +8,28 @@ use Illuminate\Http\Request;
 
 class PelangganController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
         $dataPelanggan = Pelanggan::all();
+
         return view('admin.pelanggan.index', compact('dataPelanggan'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('admin.pelanggan.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    
     public function store(Request $request)
     {
-        $data['first_name'] = $request->first_name;
-        $data['last_name'] = $request->last_name;
-        $data['birthday'] = $request->birthday;
-        $data['gender'] = $request->gender;
-        $data['email'] = $request->email;
-        $data['phone'] = $request->phone;
+        $data = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name'  => 'required|string|max:255',
+            'birthday'   => 'required|date',
+            'gender'     => 'required|in:Male,Female',
+            'email'      => 'required|email',
+            'phone'      => 'required|numeric',
+        ]);
 
         Pelanggan::create($data);
 
@@ -43,48 +37,41 @@ class PelangganController extends Controller
             ->with('success', 'Penambahan Data Pelanggan Berhasil!');
     }
 
-
-    /**
-     * Display the specified resource.
-     */
     public function show(string $id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
     public function edit(string $id)
     {
-        $data['dataPelanggan'] = Pelanggan::findOrFail($id);
-        return view('admin.pelanggan.edit', $data);
+        $dataPelanggan = Pelanggan::findOrFail($id);
+
+        return view('admin.pelanggan.edit', compact('dataPelanggan'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, string $id)
     {
+        $data = $request->validate([
+            'first_name' => 'required|string|max:255',
+            'last_name'  => 'required|string|max:255',
+            'birthday'   => 'required|date',
+            'gender'     => 'required|in:Male,Female',
+            'email'      => 'required|email',
+            'phone'      => 'required|numeric',
+        ]);
+
         $pelanggan = Pelanggan::findOrFail($id);
-        $pelanggan->first_name = $request->first_name;
-        $pelanggan->last_name = $request->last_name;
-        $pelanggan->birthday = $request->birthday;
-        $pelanggan->gender = $request->gender;
-        $pelanggan->email = $request->email;
-        $pelanggan->phone = $request->phone;
-        $pelanggan->save();
+        $pelanggan->update($data);
+
         return redirect()->route('pelanggan.index')
             ->with('success', 'Perubahan Data Berhasil!');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
     public function destroy(string $id)
     {
         $pelanggan = Pelanggan::findOrFail($id);
         $pelanggan->delete();
+
         return redirect()->route('pelanggan.index')
             ->with('success', 'Data Pelanggan Berhasil Dihapus!');
     }

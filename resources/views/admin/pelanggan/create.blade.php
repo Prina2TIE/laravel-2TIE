@@ -291,49 +291,51 @@
                             <div class="row mb-4">
                                 <div class="col-lg-4 col-sm-6">
                                     <!-- First Name -->
-                                    <div class="mb-3">
-                                        <label for="first_name" class="form-label">First name</label>
-                                        <input type="text" id="first_name" name="first_name" class="form-control" required>
-                                    </div>
+                                    <input type="text" id="first_name" name="first_name"
+    class="form-control" value="{{ old('first_name') }}" required>
+@error('first_name')
+    <div class="text-danger small">{{ $message }}</div>
+@enderror
 
                                     <!-- Last Name -->
-                                    <div class="mb-3">
-                                        <label for="last_name" class="form-label">Last name</label>
-                                        <input type="text" id="last_name" name="last_name" class="form-control" required>
-                                    </div>
-                                </div>
+                                    <input type="text" id="last_name" name="last_name"
+    class="form-control" value="{{ old('last_name') }}" required>
+@error('last_name')
+    <div class="text-danger small">{{ $message }}</div>
+@enderror
 
                                 <div class="col-lg-4 col-sm-6">
                                     <!-- Birthday -->
-                                    <div class="mb-3">
-                                        <label for="birthday" class="form-label">Birthday</label>
-                                        <input type="date" id="birthday" name="birthday" class="form-control" required>
-                                    </div>
+                                    <input type="date" id="birthday" name="birthday"
+    class="form-control" value="{{ old('birthday') }}" required>
+@error('birthday')
+    <div class="text-danger small">{{ $message }}</div>
+@enderror
 
                                     <!-- Gender -->
-                                    <div class="mb-3">
-                                        <label for="gender" class="form-label">Gender</label>
-                                        <select class="form-select" id="gender" name="gender" required>
-                                            <option value="">Pilih Gender</option>
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                            <option value="Other">Other</option>
-                                        </select>
-                                    </div>
-                                </div>
+                                    <select class="form-select" id="gender" name="gender" required>
+    <option value="">Pilih Gender</option>
+    <option value="Male" {{ old('gender') == 'Male' ? 'selected' : '' }}>Male</option>
+    <option value="Female" {{ old('gender') == 'Female' ? 'selected' : '' }}>Female</option>
+</select>
+@error('gender')
+    <div class="text-danger small">{{ $message }}</div>
+@enderror
 
                                 <div class="col-lg-4 col-sm-12">
                                     <!-- Email -->
-                                    <div class="mb-3">
-                                        <label for="email" class="form-label">Email</label>
-                                        <input type="email" id="email" name="email" class="form-control" required>
-                                    </div>
+                                    <input type="email" id="email" name="email"
+    class="form-control" value="{{ old('email') }}" required>
+@error('email')
+    <div class="text-danger small">{{ $message }}</div>
+@enderror
 
                                     <!-- Phone -->
-                                    <div class="mb-3">
-                                        <label for="phone" class="form-label">Phone</label>
-                                        <input type="text" id="phone" name="phone" class="form-control" required>
-                                    </div>
+                                    <input type="text" id="phone" name="phone"
+    class="form-control" value="{{ old('phone') }}" required>
+@error('phone')
+    <div class="text-danger small">{{ $message }}</div>
+@enderror
 
                                     <!-- Buttons -->
                                     <div class="">
